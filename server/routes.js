@@ -150,4 +150,17 @@ client().then(client => {
         );
   });
 
+  exports.offer = router.post("/offer", (req,res) => {
+    let { desc, to, from, room } = req.body
+    client.publish('offers', JSON.stringify({desc, to, from, room}))
+  })
+  exports.answer = router.post("/answer", (req,res) => {
+    let { desc, to, from, room } = req.body
+    client.publish('answers', JSON.stringify({desc, to, from, room}))
+
+  })
+  exports.IceCandidate = router.post("/IceCandidate", (req,res) => {
+    let { candidate, to, from, room } = req.body
+    client.publish('IceCandidates', JSON.stringify({candidate, to, from, room}))
+  })
 })
